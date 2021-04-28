@@ -99,7 +99,13 @@
             <!-- <a href="../../pages/transactions.jsp" class="nav-link"> --> 
           <a href="./ListNhanVien " class="nav-link">
               <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
-              <span>Thông tin giờ làm</span>
+              <span>Thông tin-Lương</span>
+          </a>
+        </li>
+          <li class="nav-item  ">
+          <a href="./loadLoggingTime" class="nav-link">
+              <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
+              <span>Logging-time</span>
           </a>
         </li>
       </ul>
@@ -151,7 +157,7 @@
                                                         <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-envelope-open-text"></span>Messages</a>
                                                         <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-user-shield"></span>Support</a>
                                                         <div role="separator" class="dropdown-divider"></div>
-                                                        <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-sign-out-alt text-danger"></span>Logout</a>
+                                                        <a class="dropdown-item font-weight-bold" href="./LogOut"><span class="fas fa-sign-out-alt text-danger"></span>Logout</a>
                                                     </div>
                                                 </li>
                                             </ul>

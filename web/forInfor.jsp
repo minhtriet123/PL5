@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,18 +86,24 @@
                                 </div>
                             </div>
                             <ul class="nav flex-column">
-                                <li class="nav-item ">
+                                <li class="nav-item   ">
                                     <!-- <a href="../../pages/dashboard/dashboard.jsp" class="nav-link"> --> 
                                     <a href="Dashboard" class="nav-link">
                                         <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
                                         <span>Giới thiệu</span>
                                     </a>
                                 </li>
-                                <li class="nav-item  active ">
+                                <li class="nav-item active ">
                                     <!-- <a href="../../pages/transactions.jsp" class="nav-link"> --> 
                                     <a href="./ListNhanVien " class="nav-link">
                                         <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
-                                        <span>Thông tin giờ làm</span>
+                                        <span>Thông tin-Lương</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="./loadLoggingTime" class="nav-link">
+                                        <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
+                                        <span>Logging-time</span>
                                     </a>
                                 </li>
                             </ul>
@@ -128,26 +134,33 @@
                                         </form>
                                     </div>
                                     <!-- Navbar links -->
-                                    <ul class="navbar-nav align-items-center">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link pt-1 px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <div class="media d-flex align-items-center">
-                                                    <img class="user-avatar md-avatar rounded-circle" alt="Image placeholder" src="./resources/assets/img/team/profile-picture-3.jpg">
-                                                    <div class="media-body ml-2 text-dark align-items-center d-none d-lg-block">
-                                                        <span class="mb-0 font-small font-weight-bold">Tài khoản chỉnh sửa</span>
+                                    <c:choose>
+                                        <c:when test="${empty sessionScope.username}">
+                                            <a href="./DangnhapControl" class="text-default font-weight-bold mr-3">Đăng nhập</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ul class="navbar-nav align-items-center">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link pt-1 px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <div class="media d-flex align-items-center">
+                                                            <img class="user-avatar md-avatar rounded-circle" alt="Image placeholder" src="./resources/assets/img/team/profile-picture-3.jpg">
+                                                            <div class="media-body ml-2 text-dark align-items-center d-none d-lg-block">
+                                                                <span class="mb-0 font-small font-weight-bold">${sessionScope.username}</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-right mt-2">
+                                                        <a class="dropdown-item font-weight-bold" href="#"><span class="far fa-user-circle"></span>My Profile</a>
+                                                        <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-cog"></span>Settings</a>
+                                                        <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-envelope-open-text"></span>Messages</a>
+                                                        <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-user-shield"></span>Support</a>
+                                                        <div role="separator" class="dropdown-divider"></div>
+                                                        <a class="dropdown-item font-weight-bold" href="./LogOut"><span class="fas fa-sign-out-alt text-danger"></span>Logout</a>
                                                     </div>
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-right mt-2">
-                                                <a class="dropdown-item font-weight-bold" href="#"><span class="far fa-user-circle"></span>My Profile</a>
-                                                <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-cog"></span>Settings</a>
-                                                <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-envelope-open-text"></span>Messages</a>
-                                                <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-user-shield"></span>Support</a>
-                                                <div role="separator" class="dropdown-divider"></div>
-                                                <a class="dropdown-item font-weight-bold" href="#"><span class="fas fa-sign-out-alt text-danger"></span>Logout</a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </nav>

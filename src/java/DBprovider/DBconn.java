@@ -11,7 +11,7 @@ public class DBconn {
         } else {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3300/dbchamcong", "root", "admin");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbchamcong", "root", "admin");
             } catch (ClassNotFoundException | SQLException e) {
                 // TODO: handle exception
             }

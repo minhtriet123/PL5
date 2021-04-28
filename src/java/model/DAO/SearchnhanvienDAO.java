@@ -17,17 +17,18 @@ import model.BEAN.Nhanvien;
  * @author ADMIN
  */
 public class SearchnhanvienDAO {
-    public ArrayList<Nhanvien> searchListNV(String nameSearch) throws SQLException{
-         ArrayList<Nhanvien> result = new ArrayList<Nhanvien>();
+
+    public ArrayList<Nhanvien> searchListNV(String nameSearch) throws SQLException {
+        ArrayList<Nhanvien> result = new ArrayList<Nhanvien>();
         DBconn.connection = DBconn.getConnection();
-        String SQL_Query_String = "SELECT * FROM nhanvien WHERE HoTen LIKE '%"+nameSearch+"%'";
-        if(DBconn.connection !=null){
+        String SQL_Query_String = "SELECT * FROM nhanvien WHERE HoTen LIKE '%" + nameSearch + "%'";
+        if (DBconn.connection != null) {
             Statement stmt = DBconn.connection.createStatement();
             ResultSet rs = stmt.executeQuery(SQL_Query_String);
-            while(rs.next()){
-                Nhanvien nv =new Nhanvien();
+            while (rs.next()) {
+                Nhanvien nv = new Nhanvien();
                 nv.setManv(rs.getInt("MaNV"));
-                nv.setHoten(rs.getString("HoTen"));                
+                nv.setHoten(rs.getString("HoTen"));
                 nv.setLuongcoban(rs.getString("LuongCoBan"));
                 nv.setMachucvu(rs.getString("MaChucVu"));
                 nv.setPhucap(rs.getString("PhuCap"));
@@ -41,5 +42,4 @@ public class SearchnhanvienDAO {
         return result;
     }
 
-   
 }

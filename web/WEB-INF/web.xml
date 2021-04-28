@@ -60,6 +60,22 @@
         <servlet-name>EditNhanVienProcess</servlet-name>
         <servlet-class>Controller.EditNhanVienProcess</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>Controller.LogOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteNhanVien</servlet-name>
+        <servlet-class>Controller.DeleteNhanVien</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loadLoggingTime</servlet-name>
+        <servlet-class>Controller.loadLoggingTime</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>tableLoggingController</servlet-name>
+        <servlet-class>Controller.tableLoggingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListNhanVien</servlet-name>
         <url-pattern>/ListNhanVien</url-pattern>
@@ -115,6 +131,22 @@
     <servlet-mapping>
         <servlet-name>EditNhanVienProcess</servlet-name>
         <url-pattern>/EditNhanVienProcess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/LogOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteNhanVien</servlet-name>
+        <url-pattern>/DeleteNhanVien</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadLoggingTime</servlet-name>
+        <url-pattern>/loadLoggingTime</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tableLoggingController</servlet-name>
+        <url-pattern>/tableLoggingController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

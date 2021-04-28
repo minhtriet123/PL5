@@ -1,6 +1,8 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="model.BEAN.Nhanvien"%>
+
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +51,15 @@
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#div_refresh").load("./tableLoggingController");
+                setInterval(function () {
+                    $("#div_refresh").load("./tableLoggingController");
+                }, 5000);
+            });
+        </script>
     </head>
 
     <body>
@@ -86,28 +97,28 @@
                                 </div>
                             </div>
                             <ul class="nav flex-column">
-                                 <ul class="nav flex-column">
-                                <li class="nav-item   ">
-                                    <!-- <a href="../../pages/dashboard/dashboard.jsp" class="nav-link"> --> 
-                                    <a href="Dashboard" class="nav-link">
-                                        <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
-                                        <span>Giới thiệu</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item active ">
-                                    <!-- <a href="../../pages/transactions.jsp" class="nav-link"> --> 
-                                    <a href="./ListNhanVien " class="nav-link">
-                                        <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
-                                        <span>Thông tin-Lương</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="./loadLoggingTime" class="nav-link">
-                                        <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
-                                        <span>Logging-time</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item   ">
+                                        <!-- <a href="../../pages/dashboard/dashboard.jsp" class="nav-link"> --> 
+                                        <a href="Dashboard" class="nav-link">
+                                            <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
+                                            <span>Giới thiệu</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <!-- <a href="../../pages/transactions.jsp" class="nav-link"> --> 
+                                        <a href="./ListNhanVien " class="nav-link">
+                                            <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
+                                            <span>Thông tin-Lương</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item active ">
+                                        <a href="./loadLoggingTime" class="nav-link">
+                                            <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
+                                            <span>Logging-time</span>
+                                        </a>
+                                    </li>
+                                </ul>
                         </div>
                     </nav>             
                     <main class="content">
@@ -116,9 +127,7 @@
                                 <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
                                     <div class="d-flex">
                                         <!-- Search form -->
-                                        <form class="navbar-search form-inline" id="navbar-search-main">
 
-                                        </form>
                                     </div>
                                     <!-- Lấy  từ session controller -->
 
@@ -157,109 +166,41 @@
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
                             <div class="d-block mb-4 mb-md-0">
 
-                                <h2 class="h4">Danh sách nhân viên</h2>
-                                <p class="mb-0">Thông tin cơ bản và giờ làm.</p>
+                                <h2 class="h4">Danh sách logging mới nhất</h2>
+                                
+
                             </div>
+                        </div>
+                        <div id="div_refresh">
 
                         </div>
-                        <div class="table-settings mb-4">
-                            <form action="SearchNhanVien" method="GET">
-                                <div class="row align-items-center justify-content-between">
-                                    <div class="col col-md-6 col-lg-3 col-xl-4">
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon2"><span class="fas fa-search"></span></span>
-                                            <input type="text" class="form-control" id="exampleInputIconLeft" name ="searchBox" placeholder="Tìm kiếm theo tên nhân viên" aria-label="Search" aria-describedby="basic-addon2">
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-md-2 col-xl-1 pl-md-0 text-right">
-                                        <div class="btn-group">
-                                            <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <button class="btn btn-secondary" type="submit">Search</button>
-                                            </button>
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+                            <div class="d-block mb-4 mb-md-0">
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
-                            <table class="table table-hover">
-                                <% ArrayList<Nhanvien> nvArray = (ArrayList<Nhanvien>) request.getAttribute("nvArray"); %>
-                                <thead>
-                                    <tr>
-                                        <th>ID nhân viên</th>
-                                        <th>Họ tên</th>						
-                                        <th>Số điện thoại</th>
-                                        <th>Chức vụ</th>
-                                        <th>Tổng giờ làm</th>
-                                        <th>Tổng công</th>
-                                        <th>Chi tiết</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Item -->
-                                    <%for (Nhanvien nv : nvArray) {%>
-                                    <tr>
-                                        <td>  
-                                            <%=nv.getManv()%>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-normal"><%= nv.getHoten()%> </span>
-                                        </td>
-                                        <td><span class="font-weight-normal"><%= nv.getSdt()%></span></td>                        
-                                        <td><span class="font-weight-normal"><%= nv.getMachucvu()%></span></td>
-                                        <td><span class="font-weight-bold"><%= nv.getTonggiolam()%></span></td>
-                                        <td><span class="font-weight-bold text-warning"><%= nv.getTongluong()%></span></td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="icon icon-sm">
-                                                        <span class="fas fa-ellipsis-h icon-dark"></span>
-                                                    </span>
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><span class="fas fa-eye mr-2"></span>View Details</a>
-                                                    <c:choose>
-                                                        <c:when test="${empty sessionScope.username}">
-                                                            <a onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này!');" class="dropdown-item" href="#"><span class="fas fa-edit mr-2"></span>Edit</a> 
-                                                            <a class="dropdown-item text-danger"onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này!');" class="dropdown-item" href="#"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <a class="dropdown-item" href="EditNhanVien?idnv=<%=nv.getManv()%>"><span class="fas fa-edit mr-2"></span>Edit</a> 
-                                                            <a class="dropdown-item text-danger" href="./DeleteNhanVien?id=<%=nv.getManv()%>" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <% }%>
+                                
+                                <p class="mb-0" > Xem toàn bộ lịch sử logging: <a href="#" style="color:red">Tại đây.</a></p> 
 
-                                </tbody>
-                            </table>
-
+                            </div>
                         </div>
                         <footer class="footer section py-5">
                             <div class="row">
                                 <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-                                    <p class="mb-0 text-center text-xl-left">Copyright © 2019-<span class="current-year"></span> <a class="text-primary font-weight-normal" href="https://themesberg.com" target="_blank">Themesberg</a></p>
+                                    <p class="mb-0 text-center text-xl-left">Copyright © 2019-<span class="current-year"></span> <a class="text-primary font-weight-normal" href="#" target="_blank">Themesberg</a></p>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <ul class="list-inline list-group-flush list-group-borderless text-center text-xl-right mb-0">
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/about">About</a>
+                                            <a href="#">About</a>
                                         </li>
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/themes">Themes</a>
+                                            <a href="#">Themes</a>
                                         </li>
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/blog">Blog</a>
+                                            <a href="#">Blog</a>
                                         </li>
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/contact">Contact</a>
+                                            <a href="#">Contact</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -312,3 +253,5 @@
     </body>
 
 </html>
+
+
