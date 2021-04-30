@@ -1,3 +1,4 @@
+  
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,9 +13,7 @@ import model.BEAN.LoggingTime;
 import model.DAO.loadLoggingTimeDAO;
 
 public class loadLoggingTimeBO {
-
     loadLoggingTimeDAO logtimeDAO = new loadLoggingTimeDAO();
-
     public ArrayList<LoggingTime> loadLogTimeBO() throws SQLException {
 //        ArrayList<LoggingTime> sortNewArray = logtimeDAO.loadLogTime();
 //        Collections.reverse(sortNewArray);

@@ -1,4 +1,3 @@
-  
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,13 +17,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.BEAN.LoggingTime;
+import model.BEAN.Nhanvien;
+import model.BO.listNhanvienBO;
 import model.BO.loadLoggingTimeBO;
 
 /**
  *
  * @author tranv
  */
-public class tableLoggingController extends HttpServlet {
+public class TinhLuong extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +44,10 @@ public class tableLoggingController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet tableLoggingController</title>");            
+            out.println("<title>Servlet TinhLuong</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet tableLoggingController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TinhLuong at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +65,30 @@ public class tableLoggingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        String thang = request.getParameter("thang");
+        String nam = request.getParameter("nam");
+        String destination = null;
+        loadLoggingTimeBO listtimeBO = new loadLoggingTimeBO();
+        ArrayList<LoggingTime> timeArray = null;
+        listNhanvienBO listNhanVienBO = new listNhanvienBO();
+        ArrayList<Nhanvien> nvArray  = null;
+        try {
+            
+            timeArray = listtimeBO.loadLogTimeBO();
+            nvArray = listNhanVienBO.getNhanvienList();
+            destination = "/tableLuong.jsp";
+            request.setAttribute("thang", thang);
+            request.setAttribute("nam", nam);
+            request.setAttribute("timeArray", timeArray);
+            request.setAttribute("nvArray", nvArray);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+            rd.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            ex.printStackTrace();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ListNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,21 +102,7 @@ public class tableLoggingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String destination = null;
-        loadLoggingTimeBO listtimeBO = new loadLoggingTimeBO();
-        ArrayList<LoggingTime> timeArray = null;
-        try {
-            timeArray = listtimeBO.loadLogTimeBO();
-            destination = "/tableLoggingTime.jsp";
-            request.setAttribute("timeArray", timeArray);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-            rd.forward(request, response);
-        } catch (ServletException | IOException ex) {
-            ex.printStackTrace();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ListNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

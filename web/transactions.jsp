@@ -48,7 +48,11 @@
         <link type="text/css" href="resources/css/volt.css" rel="stylesheet">
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+        <script type="text/javascript">
+            $(document).ready(function () {
 
+            });
+        </script>
     </head>
 
     <body>
@@ -75,7 +79,7 @@
                                         <img src="resources/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
                                     </div>
                                     <div class="d-block">
-                                        <h2 class="h6">Hi, Jane</h2>
+                                        <h2 class="h6"></h2>
                                         <a href="resources/pages/examples/sign-in.html" class="btn btn-secondary text-dark btn-xs"><span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
                                     </div>
                                 </div>
@@ -86,28 +90,28 @@
                                 </div>
                             </div>
                             <ul class="nav flex-column">
-                                 <ul class="nav flex-column">
-                                <li class="nav-item   ">
-                                    <!-- <a href="../../pages/dashboard/dashboard.jsp" class="nav-link"> --> 
-                                    <a href="Dashboard" class="nav-link">
-                                        <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
-                                        <span>Giới thiệu</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item active ">
-                                    <!-- <a href="../../pages/transactions.jsp" class="nav-link"> --> 
-                                    <a href="./ListNhanVien " class="nav-link">
-                                        <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
-                                        <span>Thông tin-Lương</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="./loadLoggingTime" class="nav-link">
-                                        <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
-                                        <span>Logging-time</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item   ">
+                                        <!-- <a href="../../pages/dashboard/dashboard.jsp" class="nav-link"> --> 
+                                        <a href="Dashboard" class="nav-link">
+                                            <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
+                                            <span>Giới thiệu</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item active ">
+                                        <!-- <a href="../../pages/transactions.jsp" class="nav-link"> --> 
+                                        <a href="./ListNhanVien " class="nav-link">
+                                            <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
+                                            <span>Thông tin-Lương</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="./loadLoggingTime" class="nav-link">
+                                            <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
+                                            <span>Logging-time</span>
+                                        </a>
+                                    </li>
+                                </ul>
                         </div>
                     </nav>             
                     <main class="content">
@@ -190,9 +194,9 @@
                                         <th>ID nhân viên</th>
                                         <th>Họ tên</th>						
                                         <th>Số điện thoại</th>
-                                        <th>Chức vụ</th>
-                                        <th>Tổng giờ làm</th>
-                                        <th>Tổng công</th>
+                                        <th>Email</th>
+                                        <th>Phụ cấp</th>
+                                        <th>Tiền công/ngày</th>
                                         <th>Chi tiết</th>
                                     </tr>
                                 </thead>
@@ -207,9 +211,9 @@
                                             <span class="font-weight-normal"><%= nv.getHoten()%> </span>
                                         </td>
                                         <td><span class="font-weight-normal"><%= nv.getSdt()%></span></td>                        
-                                        <td><span class="font-weight-normal"><%= nv.getMachucvu()%></span></td>
-                                        <td><span class="font-weight-bold"><%= nv.getTonggiolam()%></span></td>
-                                        <td><span class="font-weight-bold text-warning"><%= nv.getTongluong()%></span></td>
+                                        <td><span class="font-weight-normal"><%= nv.getEmail()%></span></td>
+                                        <td><span class="font-weight-bold"><%= nv.getPhucap()%></span></td>
+                                        <td><span class="font-weight-bold text-warning"><%= nv.getCongtheongay()%></span></td>
                                         <td>
                                             <div class="btn-group">
                                                 <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -219,7 +223,7 @@
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><span class="fas fa-eye mr-2"></span>View Details</a>
+                                                    <a class="dropdown-item" href="nhanvienLogging?MaNV=<%=nv.getManv()%> "><span class="fas fa-eye mr-2"></span>View Details</a>
                                                     <c:choose>
                                                         <c:when test="${empty sessionScope.username}">
                                                             <a onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này!');" class="dropdown-item" href="#"><span class="fas fa-edit mr-2"></span>Edit</a> 
@@ -230,7 +234,7 @@
                                                             <a class="dropdown-item text-danger" href="./DeleteNhanVien?id=<%=nv.getManv()%>" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
                                                         </c:otherwise>
                                                     </c:choose>
-                                                    
+
                                                 </div>
                                             </div>
                                         </td>
@@ -241,74 +245,118 @@
                             </table>
 
                         </div>
-                        <footer class="footer section py-5">
-                            <div class="row">
-                                <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-                                    <p class="mb-0 text-center text-xl-left">Copyright © 2019-<span class="current-year"></span> <a class="text-primary font-weight-normal" href="https://themesberg.com" target="_blank">Themesberg</a></p>
-                                </div>
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+                            <p class="text-info mb-0 h5 mb-3">Tính lương cho nhân viên:</p>
+                        </div>
+                        <div class="table-settings mb-4">
+                            <form action="TinhLuong" method="GET">
+                                <div class="row align-items-center justify-content-between">
+                                    <div class="col-md-6 mb-3 ">
+                                        <label for="thangluong" >Chọn tháng</label>
+                                        <select class="form-select mb-0" id="thangluong" aria-label="Tháng lương" name="thang" required="">
+                                            <option id="1" value="1">Tháng 1</option>
+                                            <option id="2" value="2">Tháng 2</option>
+                                            <option id="3" value="3">Tháng 3</option>
+                                            <option id="4" value="4">Tháng 4</option>
+                                            <option id="5" value="5" selected>Tháng 5</option>
+                                            <option id="6" value="6">Tháng 6</option>
+                                            <option id="7" value="7">Tháng 7</option>
+                                            <option id="8" value="8">Tháng 8</option>
+                                            <option id="9" value="9">Tháng 9</option>
+                                            <option id="10" value="10">Tháng 10</option>
+                                            <option id="11" value="11">Tháng 11</option>
+                                            <option id="12" value="12">Tháng 12</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="namluong" >Chọn năm</label>
+                                        <select class="form-select mb-0" id="namluong" aria-label="Năm lương" name="nam" required="">
+                                            <option id="2019" value="2019">2019</option>
+                                            <option id="2020" value="2020">2020</option>
+                                            <option id="2021" value="2021" selected>2021</option>
+                                            <option id="2022" value="2022">2022</option>
+                                            <option id="2023" value="2023" >2023</option>
 
-                                <div class="col-12 col-lg-6">
-                                    <ul class="list-inline list-group-flush list-group-borderless text-center text-xl-right mb-0">
-                                        <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/about">About</a>
-                                        </li>
-                                        <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/themes">Themes</a>
-                                        </li>
-                                        <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/blog">Blog</a>
-                                        </li>
-                                        <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="https://themesberg.com/contact">Contact</a>
-                                        </li>
-                                    </ul>
+                                        </select>
+                                    </div>
+                                    
+                                        <div class="btn-group">
+                                            <button class="btn btn-light" type="submit">Tính Lương</button>
+                                        </div>
+                                   
+
+                                </div>
+                            </form>
+                            
+                                        
+                                        <footer class="footer section py-5">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                                                    <p class="mb-0 text-center text-xl-left">Copyright © 2019-<span class="current-year"></span> <a class="text-primary font-weight-normal" href="https://themesberg.com" target="_blank">Themesberg</a></p>
+                                                </div>
+
+                                                <div class="col-12 col-lg-6">
+                                                    <ul class="list-inline list-group-flush list-group-borderless text-center text-xl-right mb-0">
+                                                        <li class="list-inline-item px-0 px-sm-2">
+                                                            <a href="https://themesberg.com/about">About</a>
+                                                        </li>
+                                                        <li class="list-inline-item px-0 px-sm-2">
+                                                            <a href="https://themesberg.com/themes">Themes</a>
+                                                        </li>
+                                                        <li class="list-inline-item px-0 px-sm-2">
+                                                            <a href="https://themesberg.com/blog">Blog</a>
+                                                        </li>
+                                                        <li class="list-inline-item px-0 px-sm-2">
+                                                            <a href="https://themesberg.com/contact">Contact</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </footer>
+                                        </main>
+                                    </div>
                                 </div>
                             </div>
-                        </footer>
-                    </main>
-                </div>
-            </div>
-        </div>
 
-        <!-- Core -->
-        <script src="resources/vendor/popper.js/dist/umd/popper.min.js"></script>
-        <script src="resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+                            <!-- Core -->
+                            <script src="resources/vendor/popper.js/dist/umd/popper.min.js"></script>
+                            <script src="resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
-        <!-- Vendor JS -->
-        <script src="resources/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+                            <!-- Vendor JS -->
+                            <script src="resources/vendor/onscreen/dist/on-screen.umd.min.js"></script>
 
-        <!-- Slider -->
-        <script src="resources/vendor/nouislider/distribute/nouislider.min.js"></script>
+                            <!-- Slider -->
+                            <script src="resources/vendor/nouislider/distribute/nouislider.min.js"></script>
 
-        <!-- Jarallax -->
-        <script src="resources/vendor/jarallax/dist/jarallax.min.js"></script>
+                            <!-- Jarallax -->
+                            <script src="resources/vendor/jarallax/dist/jarallax.min.js"></script>
 
-        <!-- Smooth scroll -->
-        <script src="resources/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+                            <!-- Smooth scroll -->
+                            <script src="resources/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-        <!-- Count up -->
-        <script src="resources/vendor/countup.js/dist/countUp.umd.js"></script>
+                            <!-- Count up -->
+                            <script src="resources/vendor/countup.js/dist/countUp.umd.js"></script>
 
-        <!-- Notyf -->
-        <script src="resources/vendor/notyf/notyf.min.js"></script>
+                            <!-- Notyf -->
+                            <script src="resources/vendor/notyf/notyf.min.js"></script>
 
-        <!-- Charts -->
-        <script src="resources/vendor/chartist/dist/chartist.min.js"></script>
-        <script src="resources/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+                            <!-- Charts -->
+                            <script src="resources/vendor/chartist/dist/chartist.min.js"></script>
+                            <script src="resources/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
 
-        <!-- Datepicker -->
-        <script src="resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+                            <!-- Datepicker -->
+                            <script src="resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
-        <!-- Simplebar -->
-        <script src="resources/vendor/simplebar/dist/simplebar.min.js"></script>
+                            <!-- Simplebar -->
+                            <script src="resources/vendor/simplebar/dist/simplebar.min.js"></script>
 
-        <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
+                            <!-- Github buttons -->
+                            <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-        <!-- Volt JS -->
-        <script src="resources/assets/js/volt.js"></script>
+                            <!-- Volt JS -->
+                            <script src="resources/assets/js/volt.js"></script>
 
 
-    </body>
+                            </body>
 
-</html>
+                            </html>

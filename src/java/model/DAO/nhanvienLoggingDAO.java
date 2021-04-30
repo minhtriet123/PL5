@@ -16,12 +16,11 @@ import model.BEAN.LoggingTime;
  *
  * @author tranv
  */
-public class loadLoggingTimeDAO {
-
-    public ArrayList<LoggingTime> loadLogTime() throws SQLException {
+public class nhanvienLoggingDAO {
+     public ArrayList<LoggingTime> loadLogTimeNV(String MaNV) throws SQLException {
         ArrayList<LoggingTime> result = new ArrayList<LoggingTime>();
         DBconn.connection = DBconn.getConnection();
-        String SQL_Query_String = "SELECT * FROM dbchamcong.logging ORDER BY stt DESC LIMIT 10";
+        String SQL_Query_String = "SELECT * FROM dbchamcong.logging WHERE MaNV = '"+MaNV+"'";
         if (DBconn.connection != null) {
             Statement stmt = DBconn.connection.createStatement();
             ResultSet rs = stmt.executeQuery(SQL_Query_String);

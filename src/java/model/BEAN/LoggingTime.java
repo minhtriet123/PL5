@@ -5,24 +5,65 @@
  */
 package model.BEAN;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class LoggingTime {
-    private String loggingtime;
+
+    private int MaNV;
+    private Date loggingtime;
     private String ten;
 
     public LoggingTime() {
     }
-
-    public LoggingTime(String loggingtime, String ten) {
+    
+    public LoggingTime(int MaNV, Date loggingtime, String ten) {
+        this.MaNV = MaNV;
         this.loggingtime = loggingtime;
         this.ten = ten;
     }
 
-    public String getLoggingtime() {
-        return loggingtime;
+    public int getMaNV() {
+        return MaNV;
+    }
+    public int getDay(){
+        int d = this.loggingtime.getDate();
+        return d;
+    }
+    public int getYear(){
+        int y;
+        y = this.loggingtime.getYear() +1900;
+        return y;
+    }
+    public int getMonth() {
+        int month;
+        month= this.loggingtime.getMonth() +1;
+        return month;
+    }
+    public void setMaNV(int MaNV) {
+        this.MaNV = MaNV;
     }
 
-    public void setLoggingtime(String loggingtime) {
+    public Date getLoggingtime() {
+        return loggingtime;
+    }
+    public String getLoggingtimeString() {
+        
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm  dd/MM/YYYY");  
+        String strDate = dateFormat.format(this.loggingtime);
+        return strDate;
+    }
+
+    public void setLoggingtime(Date loggingtime) {
         this.loggingtime = loggingtime;
+    }
+
+    public void setLoggingtime(String loggingtime) throws ParseException {
+        SimpleDateFormat formatter6=new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");  
+        Date date6=formatter6.parse(loggingtime);  
+        this.loggingtime = date6;
     }
 
     public String getTen() {
@@ -32,6 +73,5 @@ public class LoggingTime {
     public void setTen(String ten) {
         this.ten = ten;
     }
-    
-    
+
 }

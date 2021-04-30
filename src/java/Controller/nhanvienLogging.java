@@ -1,4 +1,3 @@
-  
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,13 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.BEAN.LoggingTime;
-import model.BO.loadLoggingTimeBO;
+import model.BO.nhanvienLoggingBO;
 
 /**
  *
  * @author tranv
  */
-public class tableLoggingController extends HttpServlet {
+public class nhanvienLogging extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +42,10 @@ public class tableLoggingController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet tableLoggingController</title>");            
+            out.println("<title>Servlet nhanvienLogging</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet tableLoggingController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet nhanvienLogging at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,11 +78,12 @@ public class tableLoggingController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String destination = null;
-        loadLoggingTimeBO listtimeBO = new loadLoggingTimeBO();
+        String MaNV = request.getParameter("MaNV");
+        nhanvienLoggingBO listtimeBO = new nhanvienLoggingBO();
         ArrayList<LoggingTime> timeArray = null;
         try {
-            timeArray = listtimeBO.loadLogTimeBO();
-            destination = "/tableLoggingTime.jsp";
+            timeArray = listtimeBO.nvloggingBO(MaNV);
+            destination = "/viewdetail.jsp";
             request.setAttribute("timeArray", timeArray);
             RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
             rd.forward(request, response);

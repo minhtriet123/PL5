@@ -1,13 +1,14 @@
+<%@page import="model.BEAN.LoggingTime"%>
+<%@page import="java.util.ArrayList"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- Primary Meta Tags -->
-        <title>Logging-Time</title>
+        <title>ViewDetail</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="title" content="Volt Bootstrap 5 Dashboard - Transactions">
         <meta name="author" content="Themesberg">
@@ -49,15 +50,6 @@
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#div_refresh").load("./tableLoggingController");
-                setInterval(function () {
-                    $("#div_refresh").load("./tableLoggingController");
-                }, 5000);
-            });
-        </script>
     </head>
 
     <body>
@@ -84,7 +76,7 @@
                                         <img src="resources/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
                                     </div>
                                     <div class="d-block">
-                                        <h2 class="h6">Hi, Jane</h2>
+                                        <h2 class="h6"></h2>
                                         <a href="resources/pages/examples/sign-in.html" class="btn btn-secondary text-dark btn-xs"><span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
                                     </div>
                                 </div>
@@ -103,14 +95,14 @@
                                             <span>Giới thiệu</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item  ">
+                                    <li class="nav-item active ">
                                         <!-- <a href="../../pages/transactions.jsp" class="nav-link"> --> 
                                         <a href="./ListNhanVien " class="nav-link">
                                             <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
                                             <span>Thông tin-Lương</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item active ">
+                                    <li class="nav-item  ">
                                         <a href="./loadLoggingTime" class="nav-link">
                                             <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
                                             <span>Logging-time</span>
@@ -125,7 +117,9 @@
                                 <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
                                     <div class="d-flex">
                                         <!-- Search form -->
+                                        <form class="navbar-search form-inline" id="navbar-search-main">
 
+                                        </form>
                                     </div>
                                     <!-- Lấy  từ session controller -->
 
@@ -160,44 +154,57 @@
                                 </div>
                             </div>
                         </nav>
-
+                        <% ArrayList<LoggingTime> timeLogging = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
                             <div class="d-block mb-4 mb-md-0">
 
-                                <h2 class="h4">Danh sách logging mới nhất</h2>
-                                
+                                <h2 class="h4">Lịch sử logging của  : <%=timeLogging.get(0).getTen()%> </h2>
 
                             </div>
-                        </div>
-                        <div id="div_refresh">
-                        </div>
-                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-                            <div class="d-block mb-4 mb-md-0">
 
-                                
-                                <p class="mb-0" > Xem toàn bộ lịch sử logging: <a href="#" style="color:red">Tại đây.</a></p> 
+                        </div>
+                        <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
+                            <table class="table table-hover">
 
-                            </div>
+
+                                <thead>
+                                    <tr>
+                                        <th>Nhân Viên</th>
+                                        <th>Logging-time</th>						
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Item -->
+                                    <%for (LoggingTime tg : timeLogging) {%>
+                                    <tr>  
+                                        <td>
+                                            <span class="font-weight-normal"><%=tg.getTen()%></span>
+                                        </td>
+                                        <td><span class="font-weight-normal"><%=tg.getLoggingtimeString()%></span></td>        
+                                    </tr>
+                                    <% }%>
+                            </table>
                         </div>
                         <footer class="footer section py-5">
                             <div class="row">
                                 <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-                                    <p class="mb-0 text-center text-xl-left">Copyright © 2019-<span class="current-year"></span> <a class="text-primary font-weight-normal" href="#" target="_blank">Themesberg</a></p>
+                                    <p class="mb-0 text-center text-xl-left">Copyright © 2019-<span class="current-year"></span> <a class="text-primary font-weight-normal" href="https://themesberg.com" target="_blank">Themesberg</a></p>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <ul class="list-inline list-group-flush list-group-borderless text-center text-xl-right mb-0">
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="#">About</a>
+                                            <a href="https://themesberg.com/about">About</a>
                                         </li>
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="#">Themes</a>
+                                            <a href="https://themesberg.com/themes">Themes</a>
                                         </li>
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="#">Blog</a>
+                                            <a href="https://themesberg.com/blog">Blog</a>
                                         </li>
                                         <li class="list-inline-item px-0 px-sm-2">
-                                            <a href="#">Contact</a>
+                                            <a href="https://themesberg.com/contact">Contact</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -250,5 +257,3 @@
     </body>
 
 </html>
-
-

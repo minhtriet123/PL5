@@ -8,8 +8,6 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -79,11 +77,10 @@ public class EditNhanVienProcess extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-       
         String name = request.getParameter("hoten");
         String phone = request.getParameter("sdt");
         String email = request.getParameter("email");
-        String luongcoban = request.getParameter("luongcoban");
+        String congtheongay = request.getParameter("congtheongay");
         String dichi = request.getParameter("diachi");
         String ngaysinh = request.getParameter("ngaysinh");
         String gioitinh = request.getParameter("gioitinh");
@@ -94,7 +91,7 @@ public class EditNhanVienProcess extends HttpServlet {
             Logger.getLogger(EditNhanVienProcess.class.getName()).log(Level.SEVERE, null, ex);
         }
         nv.setHoten(name);
-        nv.setLuongcoban(luongcoban);
+        nv.setCongtheongay(congtheongay);
         nv.setSdt(phone);
         nv.setEmail(email);
         nv.setDiachi(dichi);

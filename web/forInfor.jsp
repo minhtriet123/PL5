@@ -6,7 +6,7 @@
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- Primary Meta Tags -->
-        <title>Settings</title>
+        <title>Information</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="title" content="Volt Bootstrap 5 Dashboard - Settings">
         <meta name="author" content="Themesberg">
@@ -75,7 +75,7 @@
                                         <img src="resources/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
                                     </div>
                                     <div class="d-block">
-                                        <h2 class="h6">Hi, Jane</h2>
+                                        <h2 class="h6"></h2>
                                         <a href="resources/pages/examples/sign-in.html" class="btn btn-secondary text-dark btn-xs"><span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
                                     </div>
                                 </div>
@@ -109,15 +109,6 @@
                             </ul>
                         </div>
                     </nav>
-
-
-
-
-
-
-
-
-
 
                     <main class="content">
 
@@ -170,7 +161,8 @@
                         <%String email = (String) request.getAttribute("email");%>
                         <%String ngaysinh = (String) request.getAttribute("ngaysinh");%>
                         <%String diachi = (String) request.getAttribute("diachi");%>
-                        <%String luongcoban = (String) request.getAttribute("luongcoban");%>
+                        <%String congtheongay = (String) request.getAttribute("congtheongay");%>
+                        <%String phucap = (String) request.getAttribute("phucap");%>
                         <%String gioitinh = (String) request.getAttribute("gioitinh");%>
 
                         <div class="row">
@@ -187,8 +179,8 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <div>
-                                                    <label for="last_name">Lương cơ bản</label>
-                                                    <input class="form-control" id="last_name" type="text" placeholder="Lương cơ bản" name="luongcoban" value="<%=luongcoban%>" required>
+                                                    <label for="last_name">Công theo ngày</label>
+                                                    <input class="form-control" id="last_name" type="text" placeholder="Công theo ngày" name="congtheongay" value="<%=congtheongay%>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,6 +222,16 @@
                                                 <div class="form-group">
                                                     <label for="phone">Số điện thoại</label>
                                                     <input class="form-control" id="phone" type="number" placeholder="+12-345 678 910" name="sdt" value="<%=sdt%>" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="col-md-6 mb-3">
+                                                    <div>
+                                                        <label for="phucap">Phụ cấp</label>
+                                                        <input class="form-control" id="phucap" type="text" placeholder="Phụ cấp" name="phucap" value="<%=phucap%>" required>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

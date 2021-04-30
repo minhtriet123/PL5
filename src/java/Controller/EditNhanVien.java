@@ -76,7 +76,11 @@ public class EditNhanVien extends HttpServlet {
         String strNgaysinh = formatter.format(ngaysinh);    
         request.setAttribute("ngaysinh", strNgaysinh);
         request.setAttribute("diachi", nv.getDiachi());
-        request.setAttribute("luongcoban", nv.getLuongcoban());
+        // chuyen float thanh string de gui
+        String strCong = ""+nv.getCongtheongay();
+        request.setAttribute("congtheongay",strCong);
+        String strPhucap = ""+nv.getPhucap();
+        request.setAttribute("phucap",strPhucap);
         request.setAttribute("gioitinh", nv.getGioitinh());
         RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
         rd.forward(request, response);

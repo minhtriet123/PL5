@@ -4,6 +4,7 @@
     Author     : tranv
 --%>
 
+<%@page import="model.BEAN.Nhanvien"%>
 <%@page import="model.BEAN.LoggingTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- Primary Meta Tags -->
-        <title>LoggingTime</title>
+        <title>TinhLuong</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="title" content="Volt Bootstrap 5 Dashboard - Transactions">
         <meta name="author" content="Themesberg">
@@ -58,28 +59,50 @@
         <title>JSP Page</title>
     </head>
     <body>
-
+        <% int thang = Integer.parseInt((String) request.getAttribute("thang"));%>
+        <% int nam = Integer.parseInt((String) request.getAttribute("nam"));%>
+        <% ArrayList<LoggingTime> arrTime = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>
+        <% ArrayList<Nhanvien> arrNV = (ArrayList<Nhanvien>) request.getAttribute("nvArray");%>
         <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
             <table class="table table-hover">
-                <% ArrayList<LoggingTime> timeLogging = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>
                 <thead>
                     <tr>
+                        <th>ID Nhân Viên</th>
                         <th>Nhân Viên</th>
-                        <th>Logging-time</th>						
-
+                        <th>Số ngày công trong tháng</th>
+                        <th>Phụ cấp</th>
+                        <th>Tổng tiền tháng <%=thang%></th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Item -->
-                    <%for (LoggingTime tg : timeLogging) {%>
+                    <%for (Nhanvien nv : arrNV) {%>
                     <tr>  
                         <td>
-                            <span class="font-weight-normal"><%=tg.getTen()%></span>
+                            <span class="font-weight-normal"><%=nv.getManv()%></span>
                         </td>
-                        <td><span class="font-weight-normal"><%=tg.getLoggingtimeString()%></span></td>        
+                        <td>
+                            <span class="font-weight-normal"><%=nv.getHoten()%></span>
+                        </td>   
+                        <%  
+                            int tempdate = 0;
+                            int ngaycong = 0;
+                            for (LoggingTime lg : arrTime){
+                            if (nv.getManv()==lg.getMaNV() && lg.getMonth()==thang && lg.getYear()==nam && lg.getDay()!= tempdate ) {
+                                tempdate = lg.getDay();
+                                ngaycong++;
+                            }
+                        }
+                        %>
+                        <td><span class="font-weight-normal"></span><%=ngaycong%></td>        
+                        <td><span class="font-weight-normal"><%=nv.getPhucap()%></span></td>  
+                        <%  float tongtien = nv.getPhucap()*ngaycong + nv.getPhucap();
+                        %>
+                        <td><span class="text-tertiary mb-0"><%=tongtien%> VND</span></td>  
                     </tr>
                     <% }%>
             </table>
         </div>
+
     </body>
 </html>

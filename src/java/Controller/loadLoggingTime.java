@@ -7,18 +7,11 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.BEAN.LoggingTime;
-import model.BO.loadLoggingTimeBO;
 
 /**
  *
@@ -79,20 +72,13 @@ public class loadLoggingTime extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String destination = null;
-        loadLoggingTimeBO listtimeBO = new loadLoggingTimeBO();
-        ArrayList<LoggingTime> timeArray = null;
         try {
-            timeArray = listtimeBO.loadLogTimeBO();
-
             destination = "/logging-detail.jsp";
-            
             RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
             rd.forward(request, response);
         } catch (ServletException | IOException ex) {
             ex.printStackTrace();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ListNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
