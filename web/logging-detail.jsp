@@ -48,6 +48,7 @@
         <link type="text/css" href="resources/css/volt.css" rel="stylesheet">
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="text/javascript">
@@ -165,7 +166,7 @@
                             <div class="d-block mb-4 mb-md-0">
 
                                 <h2 class="h4">Danh sách logging mới nhất</h2>
-                                
+
 
                             </div>
                         </div>
@@ -174,9 +175,9 @@
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
                             <div class="d-block mb-4 mb-md-0">
 
-                                
-                                <p class="mb-0" > Xem toàn bộ lịch sử logging: <a href="#" style="color:red">Tại đây.</a></p> 
 
+                                <p class="mb-0" > Xem toàn bộ lịch sử logging: <a href="./HisLog" style="color:red" id="click">Tại đây.</a></p> 
+                               
                             </div>
                         </div>
                         <footer class="footer section py-5">

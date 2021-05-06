@@ -84,6 +84,10 @@
         <servlet-name>TinhLuong</servlet-name>
         <servlet-class>Controller.TinhLuong</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HisLog</servlet-name>
+        <servlet-class>Controller.HisLog</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListNhanVien</servlet-name>
         <url-pattern>/ListNhanVien</url-pattern>
@@ -163,6 +167,10 @@
     <servlet-mapping>
         <servlet-name>TinhLuong</servlet-name>
         <url-pattern>/TinhLuong</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HisLog</servlet-name>
+        <url-pattern>/HisLog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

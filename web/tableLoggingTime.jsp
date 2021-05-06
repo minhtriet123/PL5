@@ -58,7 +58,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-
         <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
             <table class="table table-hover">
                 <% ArrayList<LoggingTime> timeLogging = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>

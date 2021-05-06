@@ -113,13 +113,6 @@
 </nav>
 
 
-
-
-
-
-
-
-
                 
                     <main class="content">
 

@@ -1,17 +1,18 @@
+<%-- 
+    Document   : tableLoggingTime
+    Created on : Apr 27, 2021, 10:29:17 AM
+    Author     : tranv
+--%>
 
-
-
-<%@page import="model.BEAN.Nhanvien"%>
 <%@page import="model.BEAN.LoggingTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
-<html lang="en">
-    <head> 
+<html>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- Primary Meta Tags -->
-        <title>Transactions</title>
+   
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="title" content="Volt Bootstrap 5 Dashboard - Transactions">
         <meta name="author" content="Themesberg">
@@ -53,62 +54,45 @@
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>History</title>
+        <style>
+            .down{
+                margin-top: 15px;
+                margin-bottom: 15px;
+                margin-left: 50px;
+            }
+        </style>
     </head>
     <body>
-        <% int thang = Integer.parseInt((String) request.getAttribute("thang"));%>
-        <% int nam = Integer.parseInt((String) request.getAttribute("nam"));%>
-        <% ArrayList<LoggingTime> arrTime = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>
-        <% ArrayList<Nhanvien> arrNV = (ArrayList<Nhanvien>) request.getAttribute("nvArray");%>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4 ">
-            <div class="d-block mb-4 mb-md-0">
-
-                <h2 class="h4">LƯƠNG</h2>
-                <p class="mb-0">Tháng <%=thang%> Năm <%=nam%> </p>
-            </div>
-
-            <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID Nhân Viên</th>
-                            <th>Nhân Viên</th>
-                            <th>Số ngày công</th>
-                            <th>Phụ cấp</th>
-                            <th>Tổng tiền tháng <%=thang%></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Item -->
-                        <%for (Nhanvien nv : arrNV) {%>
-                        <tr>  
-                            <td>
-                                <span class="font-weight-normal"><%=nv.getManv()%></span>
-                            </td>
-                            <td>
-                                <span class="font-weight-normal"><%=nv.getHoten()%></span>
-                            </td>   
-                            <%
-                                int tempdate = 0;
-                                int ngaycong = 0;
-                                for (LoggingTime lg : arrTime) {
-                                    if (nv.getManv() == lg.getMaNV() && lg.getMonth() == thang && lg.getYear() == nam && lg.getDay() != tempdate) {
-                                        tempdate = lg.getDay();
-                                        ngaycong++;
-                                    }
-                                }
-                            %>
-                            <td><span class="font-weight-normal"><%=ngaycong%></span></td>        
-                            <td><span class="font-weight-normal"><%=nv.getPhucap()%></span></td>  
-                                <%  float tongtien = nv.getPhucap() * ngaycong + nv.getPhucap();
-                                %>
-                            <td><span class="text-tertiary mb-0"><%=tongtien%> VND</span></td>  
-                        </tr>
-                        <% }%>
-                </table>
-            </div>
+        <div class="down">
+            <input type="submit" value="Download" style="color: red" onclick="window.print()">
         </div>
+        <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
+            <table class="table table-hover">
+                <% ArrayList<LoggingTime> timeLogging = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>
+                <thead>
+                    <tr>
+                        <th>ID Nhân Viên</th>
+                        <th>Nhân Viên</th>
+                        <th>Logging-time</th>						
 
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Item -->
+                    <%for (LoggingTime tg : timeLogging) {%>
+                    <tr>  
+                        <td>
+                            <span class="font-weight-normal"><%=tg.getMaNV()%></span>
+                        </td>
+                        <td>
+                            <span class="font-weight-normal"><%=tg.getTen()%></span>
+                        </td>
+                        <td><span class="font-weight-normal"><%=tg.getLoggingtimeString()%></span></td>        
+                    </tr>
+                    <% }%>
+            </table>
+        </div>
     </body>
 </html>
-
-

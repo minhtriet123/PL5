@@ -7,19 +7,24 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.BO.DangnhapBO;
+import model.BEAN.LoggingTime;
+import model.BO.HisLogBO;
+
 
 /**
  *
- * @author ADMIN
+ * @author tranv
  */
-public class CheckDangNhap extends HttpServlet {
+public class HisLog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +43,10 @@ public class CheckDangNhap extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckDangNhap</title>");            
+            out.println("<title>Servlet HisLog</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CheckDangNhap at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HisLog at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +64,7 @@ public class CheckDangNhap extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -74,25 +79,27 @@ public class CheckDangNhap extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String destination = null;
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        DangnhapBO checkloginbo = new DangnhapBO();
+        HisLogBO listtimeBO = new HisLogBO();
+        ArrayList<LoggingTime> timeArray = null;
         try {
-            if(checkloginbo.isValidUser(username,password)){
-                HttpSession session = request.getSession();
-                session.setAttribute("username", username);
-                destination = "/ListNhanVien";
-                RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-                rd.forward(request, response);
-            } else {
-                destination = "/sign-in.jsp";
-                RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-                rd.forward(request, response);
-            }
-        }  catch(ServletException|ClassNotFoundException| IOException e){
-            e.printStackTrace();
+            timeArray = listtimeBO.loadLogTimeBO();
+            destination = "/history-logging.jsp";
+            request.setAttribute("timeArray", timeArray);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+            rd.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            ex.printStackTrace();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ListNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
