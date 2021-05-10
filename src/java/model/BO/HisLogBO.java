@@ -8,6 +8,7 @@ package model.BO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.BEAN.LoggingTime;
+import model.DAO.HisLogDAO;
 import model.DAO.loadLoggingTimeDAO;
 
 /**
@@ -15,7 +16,7 @@ import model.DAO.loadLoggingTimeDAO;
  * @author tranv
  */
 public class HisLogBO {
-    loadLoggingTimeDAO logtimeDAO = new loadLoggingTimeDAO();
+    HisLogDAO logtimeDAO = new HisLogDAO();
     public ArrayList<LoggingTime> loadLogTimeBO() throws SQLException {
 //        ArrayList<LoggingTime> sortNewArray = logtimeDAO.loadLogTime();
 //        Collections.reverse(sortNewArray);

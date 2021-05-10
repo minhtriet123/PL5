@@ -1,6 +1,7 @@
 
 
 
+<%@page import="java.util.Date"%>
 <%@page import="model.BEAN.Nhanvien"%>
 <%@page import="model.BEAN.LoggingTime"%>
 <%@page import="java.util.ArrayList"%>
@@ -52,7 +53,13 @@
         <link type="text/css" href="resources/css/volt.css" rel="stylesheet">
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
-
+        <style>
+            #table-scroll {
+                height:250px;
+                overflow:auto;  
+                margin-top:20px;
+            }
+        </style>
     </head>
     <body>
         <% int thang = Integer.parseInt((String) request.getAttribute("thang"));%>
@@ -67,44 +74,106 @@
             </div>
 
             <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID Nhân Viên</th>
-                            <th>Nhân Viên</th>
-                            <th>Số ngày công</th>
-                            <th>Phụ cấp</th>
-                            <th>Tổng tiền tháng <%=thang%></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Item -->
-                        <%for (Nhanvien nv : arrNV) {%>
-                        <tr>  
-                            <td>
-                                <span class="font-weight-normal"><%=nv.getManv()%></span>
-                            </td>
-                            <td>
-                                <span class="font-weight-normal"><%=nv.getHoten()%></span>
-                            </td>   
-                            <%
-                                int tempdate = 0;
-                                int ngaycong = 0;
-                                for (LoggingTime lg : arrTime) {
-                                    if (nv.getManv() == lg.getMaNV() && lg.getMonth() == thang && lg.getYear() == nam && lg.getDay() != tempdate) {
-                                        tempdate = lg.getDay();
-                                        ngaycong++;
+                <div id="table-scroll">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID Nhân Viên</th>
+                                <th>Nhân Viên</th>
+                                <th>Số ngày Full-time</th>
+                                <th>Số ngày Part-time</th>
+                                <th>Tổng tiền tháng <%=thang%></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Item -->
+                            <%for (Nhanvien nv : arrNV) {%>
+                            <tr>  
+                                <td>
+                                    <span class="font-weight-normal"><%=nv.getManv()%></span>
+                                </td>
+                                <td>
+                                    <span class="font-weight-normal"><%=nv.getHoten()%></span>
+                                </td>   
+                                <%
+                                    float giovaolam = 0;
+                                    int h2 = 0, m2 = 0;
+                                    int h1 = 0, m1 = 0;
+                                    long diff = 0, diffMinutes = 0, diffHours = 0;
+                                    int vet = 0;
+                                    int tempdate = 0;
+                                    int fulltime = 0;
+                                    int parttime = 0;
+                                    float worktime = 0;
+                                    Date startDay = null;
+                                    Date endDay = null;
+                                    for (LoggingTime lg : arrTime) {
+                                        if (nv.getManv() == lg.getMaNV() && lg.getMonth() == thang && lg.getYear() == nam) {
+                                            startDay = lg.getLoggingtime(); // xác định ngày làm đầu tiên
+                                            float tp = startDay.getHours() + startDay.getMinutes() / 60;
+                                            if (tp < giovaolam) {
+                                                startDay.setHours(7);
+                                                startDay.setMinutes(0);
+                                            }
+                                            tempdate = lg.getDay();
+                                            break;
+                                        }
                                     }
-                                }
-                            %>
-                            <td><span class="font-weight-normal"><%=ngaycong%></span></td>        
-                            <td><span class="font-weight-normal"><%=nv.getPhucap()%></span></td>  
-                                <%  float tongtien = nv.getPhucap() * ngaycong + nv.getPhucap();
+                                    for (LoggingTime lg : arrTime) {
+                                        if (nv.getManv() == lg.getMaNV() && lg.getMonth() == thang && lg.getYear() == nam && lg.getDay() != tempdate) {
+                                            endDay = arrTime.get(vet - 1).getLoggingtime();
+                                            diff = endDay.getTime() - startDay.getTime();
+                                            diffMinutes = diff / (60 * 1000) % 60;
+                                            diffHours = diff / (60 * 60 * 1000) % 24;
+                                            worktime = (diffHours + diffMinutes / 60);
+                                            startDay = lg.getLoggingtime();
+                                            float tp = startDay.getHours() + startDay.getMinutes() / 60;
+                                            if (tp < giovaolam) {
+                                                startDay.setHours(7);
+                                                startDay.setMinutes(0);
+                                            }
+                                            h1 = lg.getHours();
+                                            m1 = lg.getMinutes();
+                                            if (worktime >= 8) {
+                                                fulltime++;
+                                                worktime = 0;
+                                            }
+                                            if (worktime < 8 && worktime >= 4) {
+                                                parttime++;
+                                                worktime = 0;
+                                            }
+                                            tempdate = lg.getDay();
+                                        }
+                                        if ((arrTime.size() - 1) == arrTime.indexOf(lg)) {
+                                            for (int i = (arrTime.size() - 1); i >= 0; i--) {
+                                                if (nv.getManv() == arrTime.get(i).getMaNV() && arrTime.get(i).getMonth() == thang && arrTime.get(i).getYear() == nam) {
+                                                    h2 = arrTime.get(i).getHours();
+                                                    m2 = arrTime.get(i).getMinutes();
+                                                    break;
+                                                }
+                                            }
+                                            worktime = (h2 + m2 / 60) - (h1 + m1 / 60);
+                                            if (worktime >= 8) {
+                                                fulltime++;
+                                                worktime = 0;
+                                            }
+                                            if (worktime < 8 && worktime >= 4) {
+                                                parttime++;
+                                                worktime = 0;
+                                            }
+                                        }
+                                        vet++;
+                                    }
                                 %>
-                            <td><span class="text-tertiary mb-0"><%=tongtien%> VND</span></td>  
-                        </tr>
-                        <% }%>
-                </table>
+                                <td><span class="font-weight-normal"><%=fulltime%></span></td>        
+                                <td><span class="font-weight-normal"><%=parttime%></span></td>  
+                                    <%  float tongtien = nv.getCongtheongay() * fulltime + nv.getCongtheongay() * parttime * 0.5f + nv.getPhucap();
+                                    %>
+                                <td><span class="text-tertiary mb-0"><%=tongtien%> VND</span></td>  
+                            </tr>
+                            <% }%>
+                    </table>
+                </div>
             </div>
         </div>
 

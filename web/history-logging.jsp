@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- Primary Meta Tags -->
-   
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="title" content="Volt Bootstrap 5 Dashboard - Transactions">
         <meta name="author" content="Themesberg">
@@ -62,6 +62,7 @@
                 margin-bottom: 15px;
                 margin-left: 50px;
             }
+            
         </style>
     </head>
     <body>
@@ -69,30 +70,32 @@
             <input type="submit" value="Download" style="color: red" onclick="window.print()">
         </div>
         <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
-            <table class="table table-hover">
-                <% ArrayList<LoggingTime> timeLogging = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>
-                <thead>
-                    <tr>
-                        <th>ID Nhân Viên</th>
-                        <th>Nhân Viên</th>
-                        <th>Logging-time</th>						
+           
+                <table class="table table-hover">
+                    <% ArrayList<LoggingTime> timeLogging = (ArrayList<LoggingTime>) request.getAttribute("timeArray");%>
+                    <thead>
+                        <tr>
+                            <th>ID Nhân Viên</th>
+                            <th>Nhân Viên</th>
+                            <th>Logging-time</th>						
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Item -->
-                    <%for (LoggingTime tg : timeLogging) {%>
-                    <tr>  
-                        <td>
-                            <span class="font-weight-normal"><%=tg.getMaNV()%></span>
-                        </td>
-                        <td>
-                            <span class="font-weight-normal"><%=tg.getTen()%></span>
-                        </td>
-                        <td><span class="font-weight-normal"><%=tg.getLoggingtimeString()%></span></td>        
-                    </tr>
-                    <% }%>
-            </table>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Item -->
+                        <%for (LoggingTime tg : timeLogging) {%>
+                        <tr>  
+                            <td>
+                                <span class="font-weight-normal"><%=tg.getMaNV()%></span>
+                            </td>
+                            <td>
+                                <span class="font-weight-normal"><%=tg.getTen()%></span>
+                            </td>
+                            <td><span class="font-weight-normal"><%=tg.getLoggingtimeString()%></span></td>        
+                        </tr>
+                        <% }%>
+                </table>
+          
         </div>
     </body>
 </html>

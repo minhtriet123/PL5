@@ -18,8 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.BEAN.LoggingTime;
 import model.BEAN.Nhanvien;
+import model.BO.HisLogBO;
 import model.BO.listNhanvienBO;
-import model.BO.loadLoggingTimeBO;
+
 
 /**
  *
@@ -68,12 +69,11 @@ public class TinhLuong extends HttpServlet {
         String thang = request.getParameter("thang");
         String nam = request.getParameter("nam");
         String destination = null;
-        loadLoggingTimeBO listtimeBO = new loadLoggingTimeBO();
+        HisLogBO listtimeBO = new HisLogBO();
         ArrayList<LoggingTime> timeArray = null;
         listNhanvienBO listNhanVienBO = new listNhanvienBO();
         ArrayList<Nhanvien> nvArray  = null;
-        try {
-            
+        try {    
             timeArray = listtimeBO.loadLogTimeBO();
             nvArray = listNhanVienBO.getNhanvienList();
             destination = "/tableLuong.jsp";

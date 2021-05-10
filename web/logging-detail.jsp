@@ -56,7 +56,7 @@
                 $("#div_refresh").load("./tableLoggingController");
                 setInterval(function () {
                     $("#div_refresh").load("./tableLoggingController");
-                }, 5000);
+                }, 2000);
             });
         </script>
     </head>

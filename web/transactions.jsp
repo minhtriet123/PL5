@@ -50,10 +50,10 @@
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
         <style>
-            @media screen and (min-width: 676px) {
-                .modal-dialog {
-                    max-width: 1300px; /* New width for default modal */
-                }
+            #table-scroll {
+                height:250px;
+                overflow:auto;  
+                margin-top:20px;
             }
         </style>
     </head>
@@ -190,66 +190,96 @@
                             </form>
                         </div>
                         <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
-                            <table class="table table-hover">
-                                <% ArrayList<Nhanvien> nvArray = (ArrayList<Nhanvien>) request.getAttribute("nvArray"); %>
-                                <thead>
-                                    <tr>
-                                        <th>ID nhân viên</th>
-                                        <th>Họ tên</th>						
-                                        <th>Số điện thoại</th>
-                                        <th>Email</th>
-                                        <th>Phụ cấp</th>
-                                        <th>Tiền công/ngày</th>
-                                        <th>Chi tiết</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Item -->
-                                    <%for (Nhanvien nv : nvArray) {%>
-                                    <tr>
-                                        <td>  
-                                            <%=nv.getManv()%>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-normal"><%= nv.getHoten()%> </span>
-                                        </td>
-                                        <td><span class="font-weight-normal"><%= nv.getSdt()%></span></td>                        
-                                        <td><span class="font-weight-normal"><%= nv.getEmail()%></span></td>
-                                        <td><span class="font-weight-bold"><%= nv.getPhucap()%></span></td>
-                                        <td><span class="font-weight-bold text-warning"><%= nv.getCongtheongay()%></span></td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="icon icon-sm">
-                                                        <span class="fas fa-ellipsis-h icon-dark"></span>
-                                                    </span>
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="nhanvienLogging?MaNV=<%=nv.getManv()%> "><span class="fas fa-eye mr-2"></span>View Details</a>
-                                                    <c:choose>
-                                                        <c:when test="${empty sessionScope.username}">
-                                                            <a onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này!');" class="dropdown-item" href="#"><span class="fas fa-edit mr-2"></span>Edit</a> 
-                                                            <a class="dropdown-item text-danger"onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này!');" class="dropdown-item" href="#"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <a class="dropdown-item" href="EditNhanVien?idnv=<%=nv.getManv()%>"><span class="fas fa-edit mr-2"></span>Edit</a> 
-                                                            <a class="dropdown-item text-danger" href="./DeleteNhanVien?id=<%=nv.getManv()%>" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
-                                                        </c:otherwise>
-                                                    </c:choose>
+                            <div id="table-scroll">
+                                <table class="table table-hover">
+                                    <% ArrayList<Nhanvien> nvArray = (ArrayList<Nhanvien>) request.getAttribute("nvArray"); %>
+                                    <thead>
+                                        <tr>
+                                            <th>ID nhân viên</th>
+                                            <th>Họ tên</th>						
+                                            <th>Số điện thoại</th>
+                                            <th>Email</th>
+                                            <th>Phụ cấp</th>
+                                            <th>Tiền công/ngày</th>
+                                            <th>Chi tiết</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Item -->
+                                        <%for (Nhanvien nv : nvArray) {%>
+                                        <tr>
+                                            <td>  
+                                                <%=nv.getManv()%>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-normal"><%= nv.getHoten()%> </span>
+                                            </td>
+                                            <td><span class="font-weight-normal"><%= nv.getSdt()%></span></td>                        
+                                            <td><span class="font-weight-normal"><%= nv.getEmail()%></span></td>
+                                            <td><span class="font-weight-bold"><%= nv.getPhucap()%></span></td>
+                                            <td><span class="font-weight-bold text-warning"><%= nv.getCongtheongay()%></span></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="icon icon-sm">
+                                                            <span class="fas fa-ellipsis-h icon-dark"></span>
+                                                        </span>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="nhanvienLogging?MaNV=<%=nv.getManv()%> "><span class="fas fa-eye mr-2"></span>View Details</a>
+                                                        <c:choose>
+                                                            <c:when test="${empty sessionScope.username}">
+                                                                <a onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này!');" class="dropdown-item" href="#"><span class="fas fa-edit mr-2"></span>Edit</a> 
+                                                                <a class="dropdown-item text-danger"onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này!');" class="dropdown-item" href="#"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a class="dropdown-item" href="EditNhanVien?idnv=<%=nv.getManv()%>"><span class="fas fa-edit mr-2"></span>Edit</a> 
+                                                                <a class="dropdown-item text-danger" href="./DeleteNhanVien?id=<%=nv.getManv()%>" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
+                                                            </c:otherwise>
+                                                        </c:choose>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <% }%>
-
-                                </tbody>
-                            </table>
-
+                                            </td>
+                                        </tr>
+                                        <% }%>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
                             <p class="text-info mb-0 h5 mb-3">Tính lương cho nhân viên:</p>
+                            <!-- Button Modal -->
+                            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal-default">?</button>
+                            <!-- Modal Content -->
+                            <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="h6 modal-title">CÁCH THỨC TÍNH LƯƠNG</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h2 class="h6 ">Quy định giờ làm:</h2>
+                                            <p>- Thời gian làm việc của công ty: 7:00 am - 5:00 pm.</p>
+                                            <p>- Nhân viên vui lòng logging trong thời gian quy định (có thể logging sớm hơn, nhưng thời gian chấm công chỉ tính từ 7:00 am). </p>
+                                            <p>- Nếu thời gian làm >= 8 tiếng / ngày thì tính là 1 ngày công. </p>
+                                            <p>- Nếu thời gian làm trong khoảng 4 - 8 tiếng / ngày thì tính là 1/2 ngày công. </p>
+                                            <p>- Nếu thời gian làm trong < 4 tiếng / ngày thì chưa đủ chỉ tiêu giờ làm tính là 0 ngày công. </p>
+                                            <h2 class="h6">Công thức tính lương:</h2>
+                                            <p>- Tổng lương 1 tháng = tiền lương cơ bản(theo ngày) * số ngày công + phụ cấp.</p>
+                                        </div>
+                                        <div class="modal-footer">
+
+                                            <button type="button" class="btn btn-link text-danger ml-auto" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Modal Content -->
                         </div>
                         <div class="table-settings mb-4">
 
@@ -285,8 +315,8 @@
                                     <button class="btn btn-light" type="button" id="tinh" onclick="jsToiLuong()"  >Tính Lương</button>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div id="demo"></div>
                             <footer class="footer section py-5">
                                 <div class="row">

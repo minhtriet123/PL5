@@ -17,8 +17,9 @@ public class LoggingTime {
     private String ten;
 
     public LoggingTime() {
+
     }
-    
+
     public LoggingTime(int MaNV, Date loggingtime, String ten) {
         this.MaNV = MaNV;
         this.loggingtime = loggingtime;
@@ -28,20 +29,42 @@ public class LoggingTime {
     public int getMaNV() {
         return MaNV;
     }
-    public int getDay(){
+
+    public int getDay() {
         int d = this.loggingtime.getDate();
         return d;
     }
-    public int getYear(){
+
+    public int getYear() {
         int y;
-        y = this.loggingtime.getYear() +1900;
+        y = this.loggingtime.getYear() + 1900;
         return y;
     }
+
     public int getMonth() {
         int month;
-        month= this.loggingtime.getMonth() +1;
+        month = this.loggingtime.getMonth() + 1;
         return month;
     }
+
+    public int getHours() {
+        int hours;
+        hours = this.loggingtime.getHours();
+        return hours;
+    }
+
+      public int getMinutes() {
+        int mins;
+        mins = this.loggingtime.getMinutes();
+        return mins;
+    }
+    public String getTimeStr() {
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm");
+        String strDate = dateFormat.format(this);
+        return strDate;
+
+    }
+
     public void setMaNV(int MaNV) {
         this.MaNV = MaNV;
     }
@@ -49,9 +72,10 @@ public class LoggingTime {
     public Date getLoggingtime() {
         return loggingtime;
     }
+
     public String getLoggingtimeString() {
-        
-        DateFormat dateFormat = new SimpleDateFormat("hh:mm  dd/MM/YYYY");  
+
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm a dd/MM/YYYY ");
         String strDate = dateFormat.format(this.loggingtime);
         return strDate;
     }
@@ -61,8 +85,8 @@ public class LoggingTime {
     }
 
     public void setLoggingtime(String loggingtime) throws ParseException {
-        SimpleDateFormat formatter6=new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");  
-        Date date6=formatter6.parse(loggingtime);  
+        SimpleDateFormat formatter6 = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+        Date date6 = formatter6.parse(loggingtime);
         this.loggingtime = date6;
     }
 
