@@ -50,7 +50,7 @@
         <link type="text/css" href="resources/vendor/notyf/notyf.min.css" rel="stylesheet">
 
         <!-- Volt CSS -->
-        <link type="text/css" href="resources/css/volt.css" rel="stylesheet">
+        <link type="text/cs`s" href="resources/css/volt.css" rel="stylesheet">
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
         <style>
