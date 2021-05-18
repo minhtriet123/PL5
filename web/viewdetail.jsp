@@ -49,7 +49,13 @@
         <link type="text/css" href="resources/css/volt.css" rel="stylesheet">
 
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
-
+        <style>
+            #table-scroll {
+                height:450px;
+                overflow:auto;  
+                margin-top:20px;
+            }
+        </style>
     </head>
 
     <body>
@@ -164,27 +170,29 @@
 
                         </div>
                         <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
-                            <table class="table table-hover">
+                            <div id="table-scroll">
+                                <table class="table table-hover">
 
 
-                                <thead>
-                                    <tr>
-                                        <th>Nhân Viên</th>
-                                        <th>Logging-time</th>						
+                                    <thead>
+                                        <tr>
+                                            <th>Nhân Viên</th>
+                                            <th>Logging-time</th>						
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Item -->
-                                    <%for (LoggingTime tg : timeLogging) {%>
-                                    <tr>  
-                                        <td>
-                                            <span class="font-weight-normal"><%=tg.getTen()%></span>
-                                        </td>
-                                        <td><span class="font-weight-normal"><%=tg.getLoggingtimeString()%></span></td>        
-                                    </tr>
-                                    <% }%>
-                            </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Item -->
+                                        <%for (LoggingTime tg : timeLogging) {%>
+                                        <tr>  
+                                            <td>
+                                                <span class="font-weight-normal"><%=tg.getTen()%></span>
+                                            </td>
+                                            <td><span class="font-weight-normal"><%=tg.getLoggingtimeString()%></span></td>        
+                                        </tr>
+                                        <% }%>
+                                </table>
+                            </div>
                         </div>
                         <footer class="footer section py-5">
                             <div class="row">

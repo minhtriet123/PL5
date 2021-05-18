@@ -104,7 +104,7 @@
                                     int tempdate = 0;
                                     int fulltime = 0;
                                     int parttime = 0;
-                                    float worktime = 0;
+                                    float worktime = 0.5f;
                                     Date startDay = null;
                                     Date endDay = null;
                                     for (LoggingTime lg : arrTime) {
@@ -125,7 +125,7 @@
                                             diff = endDay.getTime() - startDay.getTime();
                                             diffMinutes = diff / (60 * 1000) % 60;
                                             diffHours = diff / (60 * 60 * 1000) % 24;
-                                            worktime = (diffHours + diffMinutes / 60);
+                                            worktime += (diffHours + diffMinutes / 60);
                                             startDay = lg.getLoggingtime();
                                             float tp = startDay.getHours() + startDay.getMinutes() / 60;
                                             if (tp < giovaolam) {
@@ -136,11 +136,11 @@
                                             m1 = lg.getMinutes();
                                             if (worktime >= 8) {
                                                 fulltime++;
-                                                worktime = 0;
+                                                worktime = 0.5f;
                                             }
                                             if (worktime < 8 && worktime >= 4) {
                                                 parttime++;
-                                                worktime = 0;
+                                                worktime = 0.5f;
                                             }
                                             tempdate = lg.getDay();
                                         }
@@ -152,14 +152,14 @@
                                                     break;
                                                 }
                                             }
-                                            worktime = (h2 + m2 / 60) - (h1 + m1 / 60);
+                                            worktime += (h2 + m2 / 60) - (h1 + m1 / 60);
                                             if (worktime >= 8) {
                                                 fulltime++;
-                                                worktime = 0;
+                                                worktime = 0.5f;
                                             }
                                             if (worktime < 8 && worktime >= 4) {
                                                 parttime++;
-                                                worktime = 0;
+                                                worktime = 0.5f;
                                             }
                                         }
                                         vet++;
