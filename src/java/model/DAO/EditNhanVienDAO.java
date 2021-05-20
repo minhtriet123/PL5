@@ -21,21 +21,22 @@ public class EditNhanVienDAO {
     public boolean editNhanVien(Nhanvien nv) {
         DBconn.connection = DBconn.getConnection();
         if (DBconn.connection != null) {
-            String SQL_Query_String = "UPDATE nhanvien SET HoTen = ?, GioiTinh = ?, NgaySinh = ?, Email = ?, Sdt = ?, DiaChi = ? PhuCap = ?, Congtheongay=? WHERE MaNV = ?";
+            String SQL_Query_String = "UPDATE nhanvien SET HoTen = ?, GioiTinh = ?, Email = ?, Sdt = ?, DiaChi = ? PhuCap = ?, Congtheongay=?, Ngaysinh=? WHERE MaNV = ?";
             try {
                 PreparedStatement stmt = DBconn.connection.prepareStatement(SQL_Query_String);
                 stmt.setString(1, nv.getHoten());
                 stmt.setString(2, nv.getGioitinh());
+                stmt.setString(3, nv.getEmail());
+                stmt.setString(4, nv.getSdt());
+                stmt.setString(5, nv.getDiachi());
+                stmt.setFloat(6, nv.getPhucap());
+                stmt.setFloat(7, nv.getCongtheongay());
+                stmt.setInt(9, nv.getManv());
                 //convert Data java thanh Data sql
                 java.sql.Date sDate = new java.sql.Date(nv.getNgaysinh().getTime());
-                stmt.setDate(3, sDate);
+                stmt.setDate(8, sDate);
+                 
                 //----------------------------------------------------------------
-                stmt.setString(4, nv.getEmail());
-                stmt.setString(5, nv.getSdt());
-                stmt.setString(6, nv.getDiachi());
-                stmt.setFloat(7, nv.getPhucap());
-                stmt.setFloat(8, nv.getCongtheongay());
-                stmt.setInt(9, nv.getManv());
                 stmt.execute();
                 return true;
             } catch (SQLException e) {

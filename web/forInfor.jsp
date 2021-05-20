@@ -164,7 +164,7 @@
                         <%String congtheongay = (String) request.getAttribute("congtheongay");%>
                         <%String phucap = (String) request.getAttribute("phucap");%>
                         <%String gioitinh = (String) request.getAttribute("gioitinh");%>
-
+                       
                         <div class="row">
                             <div class="col-12 col-xl-8">
                                 <div class="card card-body bg-white border-light shadow-sm mb-4">
@@ -173,6 +173,7 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <div>
+                                                    <input type="hidden" id="idhs" name="idnv" value="<%=idnv%>">
                                                     <label for="first_name">Họ tên</label>
                                                     <input class="form-control" id="first_name" type="text" placeholder="Name" name="hoten" value="<%=name%>" required>
                                                 </div>

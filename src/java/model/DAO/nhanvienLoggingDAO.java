@@ -17,17 +17,21 @@ import model.BEAN.LoggingTime;
  * @author tranv
  */
 public class nhanvienLoggingDAO {
-     public ArrayList<LoggingTime> loadLogTimeNV(String MaNV) throws SQLException {
+
+    public ArrayList<LoggingTime> loadLogTimeNV(String MaNV) throws SQLException {
         ArrayList<LoggingTime> result = new ArrayList<LoggingTime>();
         DBconn.connection = DBconn.getConnection();
-        String SQL_Query_String = "SELECT * FROM dbchamcong.logging WHERE MaNV = '"+MaNV+"'";
+        String SQL_Query_String = "SELECT `logging`.`stt`, `logging`.`MaNV`,`nhanvien`.`HoTen`,`logging`.`timelogging` FROM dbchamcong.logging\n"
+                + "INNER JOIN dbchamcong.nhanvien  ON `logging`.`MaNV`=`nhanvien`.`MaNV`\n"
+                + "WHERE `logging`.`MaNV`='"+MaNV+"'\n"
+                + "ORDER BY stt  ";
         if (DBconn.connection != null) {
             Statement stmt = DBconn.connection.createStatement();
             ResultSet rs = stmt.executeQuery(SQL_Query_String);
             while (rs.next()) {
                 LoggingTime lg = new LoggingTime();
                 lg.setLoggingtime(rs.getTimestamp("timelogging"));
-                lg.setTen(rs.getString("ten"));
+                lg.setTen(rs.getString("HoTen"));
                 lg.setMaNV(rs.getInt("MaNV"));
                 result.add(lg);
             }

@@ -122,4 +122,9 @@ public class Nhanvien {
         this.congtheongay = fcong;
     }
 
+    public void setManv(String id) {
+        int iID = Integer.parseInt(id);
+        this.manv = iID;
+    }
+
 }

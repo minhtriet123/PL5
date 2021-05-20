@@ -8,6 +8,7 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -41,7 +42,7 @@ public class EditNhanVienProcess extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditNhanVienProcess</title>");            
+            out.println("<title>Servlet EditNhanVienProcess</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet EditNhanVienProcess at " + request.getContextPath() + "</h1>");
@@ -77,32 +78,39 @@ public class EditNhanVienProcess extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        String id = request.getParameter("idnv");
         String name = request.getParameter("hoten");
         String phone = request.getParameter("sdt");
         String email = request.getParameter("email");
         String congtheongay = request.getParameter("congtheongay");
-        String dichi = request.getParameter("diachi");
+        String diachi = request.getParameter("diachi");
         String ngaysinh = request.getParameter("ngaysinh");
         String gioitinh = request.getParameter("gioitinh");
+        String phucap = request.getParameter("phucap");
         Nhanvien nv = new Nhanvien();
-        try {
+        nv.setManv(id);
+        Date testD = new Date();
+        /*try {
             nv.setNgaysinh(ngaysinh);
         } catch (ParseException ex) {
             Logger.getLogger(EditNhanVienProcess.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        nv.setNgaysinh(testD);
         nv.setHoten(name);
         nv.setCongtheongay(congtheongay);
+        nv.setPhucap(phucap);
         nv.setSdt(phone);
         nv.setEmail(email);
-        nv.setDiachi(dichi);
+        nv.setDiachi(diachi);
         nv.setGioitinh(gioitinh);
+        
         EditNhanVienBO editnvBO = new EditNhanVienBO();
-        if(editnvBO.editHocSinh(nv)){
+        
+        if (editnvBO.editHocSinh(nv)) {
             String destination = "/DangnhapControler";
             RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
             rd.forward(request, response);
-        }
-        else {
+        } else {
             String destination = "/DangkyControler";
             RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
             rd.forward(request, response);
